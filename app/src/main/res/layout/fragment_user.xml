@@ -1,75 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="userData"
             type="com.gvtechcom.testfirebase.viewmodel.UserViewModel" />
+
         <variable
             name="userdialog"
             type="com.gvtechcom.testfirebase.view.ShowDialog" />
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:orientation="vertical"
         tools:context=".view.UserFragment">
 
         <!-- TODO: Update blank fragment layout -->
         <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@{userData.accountName}"
-        android:layout_marginTop="16dp"
-        android:textSize="20sp"/>
+            android:id="@+id/text_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@{userData.accountName}"
+            android:textSize="20sp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@{userData.email}"
-            android:layout_marginTop="16dp"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{userData.numberPhone}"
             android:layout_marginTop="16dp"
-            android:textSize="20sp"/>
+            android:text="@{userData.numberPhone}"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/edt_name"
-            android:drawableStart="@drawable/ic_eye_black_24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@={userData.accountName}"/>
+            android:drawableStart="@drawable/ic_eye_black_24dp"
+            android:text="@={userData.accountName}" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dialog 1"
-            android:onClick='@{() -> userData.setStateValue("Nội dung dialog 1")}'/>
+            android:onClick='@{() -> userData.setStateValue("Nội dung dialog 1")}'
+            android:text="Dialog 1" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dialog 2"
-            android:onClick='@{() -> userData.setStateValue("Nội dung dialog 2")}'/>
+            android:onClick='@{() -> userData.setStateValue("Nội dung dialog 2")}'
+            android:text="Dialog 2" />
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_setaccount"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="@{()->userData.onClickBtn()}"-->
+<!--            android:text="BindingAdapter Show message"-->
+<!--            bind:showtoat="@{userData.messageToast}" />-->
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_setaccount"
-            android:text="Show message"
-            android:onClick="@{()->userData.onClickBtn()}"
-            bind:showtoat = "@{userData.messageToast}"/>
+            android:text="BindingAdapter Down Up"
+            bind:messageToast="@{true}" />
+
         <Button
+            android:id="@+id/btn_show1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Show Down Up"
-            bind:messageToast = "@{true}"/>
+            android:text="BindingAdapter Show number"
+            bind:show="@{1}" />
+
         <Button
+            android:id="@+id/btn_show2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Show number"
-            bind:show = "@{1}"/>
+            android:text="BindingAdapter Show number2"
+            bind:show='@{2}' />
 
     </LinearLayout>
 </layout>

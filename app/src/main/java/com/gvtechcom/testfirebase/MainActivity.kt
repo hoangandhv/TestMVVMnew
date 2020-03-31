@@ -22,31 +22,43 @@ class MainActivity : AppCompatActivity() {
         fm.commit()
 
         val database = Firebase.database
-        val myRef = database.getReference("message${Calendar.getInstance().timeInMillis}")
-        myRef.child("message").child("message3").setValue("123")
+//        val myRef = database.getReference("message${Calendar.getInstance().timeInMillis}")
+//        myRef.child("message").child("message3").setValue("123")
+        val myRef = database.getReference("Danhsach")
 
-        myRef.addChildEventListener(object : ChildEventListener{
+        myRef.addValueEventListener(object : ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-                Log.d("AAA-", "Value is: ${p0} ")
-            }
-
-            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
-                Log.d("AAA-", "Value is: ${p0} ")
-            }
-
-            override fun onChildRemoved(p0: DataSnapshot) {
-                Log.d("AAA-", "Value is: ${p0} ")
+            override fun onDataChange(p0: DataSnapshot) {
+                Log.d("FirebaseLog", "Value is Danhsach: ${p0.value} ")
             }
 
         })
+
+//        myRef.addChildEventListener(object : ChildEventListener{
+//            override fun onCancelled(p0: DatabaseError) {
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//            }
+//
+//            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//            }
+//
+//            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
+//                Log.d("FirebaseLog", "Value is: ${p0} ")
+//            }
+//
+//            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+//                Log.d("FirebaseLog", "Value is: ${p0} ")
+//            }
+//
+//            override fun onChildRemoved(p0: DataSnapshot) {
+//                Log.d("FirebaseLog", "Value is: ${p0} ")
+//            }
+//
+//        })
 
 
     }

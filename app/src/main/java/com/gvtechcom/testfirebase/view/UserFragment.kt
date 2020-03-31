@@ -1,13 +1,11 @@
 package com.gvtechcom.testfirebase.view
 
-import App
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
@@ -15,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.gvtechcom.testfirebase.R
 import com.gvtechcom.testfirebase.databinding.FragmentUserBinding
+import com.gvtechcom.testfirebase.databinding.ItemDialogBinding
 import com.gvtechcom.testfirebase.viewmodel.UserViewModel
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -25,6 +24,7 @@ import java.util.regex.Pattern
  */
 class UserFragment : Fragment(),  InterfaceShowDialog {
     lateinit var dataBindingUtil: FragmentUserBinding
+    lateinit var bindingDialog: ItemDialogBinding
     lateinit var userViewModel: UserViewModel
 
     override fun onCreateView(
@@ -42,12 +42,9 @@ class UserFragment : Fragment(),  InterfaceShowDialog {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        btn_setaccount.setOnClickListener {
-//            dataBindingUtil.userData!!.onClickBtn()
-//            Toast.makeText(context,dataBindingUtil.userData!!.messageToast.get(), Toast.LENGTH_LONG).show()
-//        }
         userViewModel.getState().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             showToast(it)
+            showDialog()
         })
     }
 
@@ -68,22 +65,26 @@ class UserFragment : Fragment(),  InterfaceShowDialog {
     }
 
     override fun showDialog() {
+        bindingDialog = DataBindingUtil
+            .inflate(LayoutInflater.from(context), R.layout.item_dialog, null, false)
+        bindingDialog.dialog = userViewModel
+        bindingDialog.lifecycleOwner = this
         val dialog = Dialog(context!!)
-        dialog.setContentView(R.layout.item_dialog)
+        dialog.setContentView(bindingDialog.root)
         dialog.show()
     }
 
     companion object {
-        //        @JvmStatic
+//        @JvmStatic
 //        @BindingAdapter("messageToast")
 //        fun set(view: View, message: String?) {
 //            if (message!=null){
 //                Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
 //            }
 //        }
-        @JvmStatic
+
         @BindingAdapter("messageToast")
-        fun setOntouch(view: View, boolean: Boolean) {
+        @JvmStatic fun setOntouch(view: View, boolean: Boolean) {
             view.setOnTouchListener { v, event ->
                 if (event?.action == MotionEvent.ACTION_DOWN) {
                     Toast.makeText(view.context, "ACTION_DOWN", Toast.LENGTH_SHORT).show()
@@ -93,15 +94,18 @@ class UserFragment : Fragment(),  InterfaceShowDialog {
                 boolean
             }
         }
-        @JvmStatic
+
         @BindingAdapter("show")
-        fun setShow(view: View, number: Int) {
+        @JvmStatic fun setShow(view: View, number: Int) {
             view.setOnClickListener {
                 Toast.makeText(view.context, "$number", Toast.LENGTH_SHORT).show()
+                when(view.id){
+                    R.id.btn_show1 -> Log.d("AAA","Show 1")
+                    R.id.btn_show2 -> Log.d("AAA","Show 2")
+                }
             }
 
         }
-
     }
 
 
